@@ -13,5 +13,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
-          script: whoami
-
+          script: |
+            cd /home/restaged/restaged-api  
+            git pull 
+            pm2 reload api/server.js
