@@ -24,7 +24,7 @@ jobs:
           # ssh remote host
           host: 135.181.39.109
           # ssh remote user
-          user: root
+          user: restaged
           # content of ssh private key. ex raw content of ~/.ssh/id_rsa
           key: ${{ secrets.SSH_KEY}}
     
