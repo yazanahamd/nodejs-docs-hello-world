@@ -25,3 +25,5 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{secrets.SSH_KEY}}
           SSH_KNOWN_HOSTS: ${{secrets.SSH_HOSTS}}
+      - name: starting pm2 
+        run: pm2 start 4
