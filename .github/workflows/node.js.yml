@@ -1,6 +1,3 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
 name: Node.js CI
 
 on:
@@ -8,25 +5,23 @@ on:
     branches: [ master ]
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      #
-      # ... your other steps, such as running tests, etc...
-      #
+  build:
 
-      - name: ssh-scp-ssh-pipelines
-        # You may pin to the exact commit or the version.
-        # uses: cross-the-world/ssh-scp-ssh-pipelines@78e864b4890087a58248ff39320406971ca88b89
-        uses: cross-the-world/ssh-scp-ssh-pipelines@v1.1.4
-        with:
-          # ssh remote host
-          host: 135.181.39.109
-          # ssh remote user
-          user: restaged
-          # content of ssh private key. ex raw content of ~/.ssh/id_rsa
-          key: ${{ secrets.SSH_KEY}}
-    
-      - name: starting pm2 
-        run: pm2 start 4
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Copy via ssh
+      uses: garygrossgarten/github-action-scp@v0.7.3
+      with:
+          local: /
+          remote: scp/directory
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          privateKey: ${{ secrets.SSH_KEY}}
