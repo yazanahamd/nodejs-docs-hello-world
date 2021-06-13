@@ -24,4 +24,4 @@ jobs:
         shell: bash
         env:
           SSH_PRIVATE_KEY: ${{secrets.SSH_KEY}}
-          SSH_KNOWN_HOSTS: ${{secrets.HOSTS}}
+          SSH_KNOWN_HOSTS: ${{secrets.SSH_HOSTS}}
