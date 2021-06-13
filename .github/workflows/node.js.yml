@@ -14,6 +14,9 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            whoami
             cd /home/restaged/restaged-api  
             git pull 
+            whoami
             pm2 reload api/server.js
+            
